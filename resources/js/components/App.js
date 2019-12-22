@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 class App extends Component {
     render() {
+        const title = 'Welcome to smoggitor first component';
         return (
             <div className="App">
-                <h2>Welcome to smoggitor first component</h2>
+                <h2>{title}</h2>
             </div>
         );
     }
