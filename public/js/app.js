@@ -69125,15 +69125,44 @@ function (_Component3) {
           key: item.objectID
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.objectID), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
           href: item.url
-        }, item.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.num_comments), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.points), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          onClick: onDismiss,
-          type: "button"
+        }, item.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.num_comments), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.points), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
+          onClick: onDismiss
         }, "Dismiss")));
       }));
     }
   }]);
 
   return Table;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var Button =
+/*#__PURE__*/
+function (_Component4) {
+  _inherits(Button, _Component4);
+
+  function Button() {
+    _classCallCheck(this, Button);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Button).apply(this, arguments));
+  }
+
+  _createClass(Button, [{
+    key: "render",
+    value: function render() {
+      var _this$props3 = this.props,
+          onClick = _this$props3.onClick,
+          _this$props3$classNam = _this$props3.className,
+          className = _this$props3$classNam === void 0 ? '' : _this$props3$classNam,
+          children = _this$props3.children;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: onClick,
+        className: className,
+        type: "button"
+      }, children);
+    }
+  }]);
+
+  return Button;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Books);
