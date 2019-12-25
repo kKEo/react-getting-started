@@ -69056,7 +69056,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Search, {
         value: searchTerm,
         onChange: this.onSearchChange
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Table, {
+      }, "Search"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Table, {
         list: list,
         pattern: searchTerm,
         onChange: this.onSearchChange
@@ -69083,8 +69083,9 @@ function (_Component2) {
     value: function render() {
       var _this$props = this.props,
           value = _this$props.value,
-          onChange = _this$props.onChange;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          onChange = _this$props.onChange,
+          children = _this$props.children;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, children, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: value,
         onChange: onChange
