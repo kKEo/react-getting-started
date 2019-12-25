@@ -69048,17 +69048,74 @@ function (_Component) {
   _createClass(Books, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var _this$state = this.state,
           searchTerm = _this$state.searchTerm,
           list = _this$state.list;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "books"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Search, {
+        value: searchTerm,
         onChange: this.onSearchChange
-      })), list.filter(isSearched(searchTerm)).map(function (item) {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Table, {
+        list: list,
+        pattern: searchTerm,
+        onChange: this.onSearchChange
+      }));
+    }
+  }]);
+
+  return Books;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var Search =
+/*#__PURE__*/
+function (_Component2) {
+  _inherits(Search, _Component2);
+
+  function Search() {
+    _classCallCheck(this, Search);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Search).apply(this, arguments));
+  }
+
+  _createClass(Search, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          value = _this$props.value,
+          onChange = _this$props.onChange;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: value,
+        onChange: onChange
+      }));
+    }
+  }]);
+
+  return Search;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var Table =
+/*#__PURE__*/
+function (_Component3) {
+  _inherits(Table, _Component3);
+
+  function Table() {
+    _classCallCheck(this, Table);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Table).apply(this, arguments));
+  }
+
+  _createClass(Table, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _this$props2 = this.props,
+          list = _this$props2.list,
+          pattern = _this$props2.pattern,
+          onDismiss = _this$props2.onDismiss;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, list.filter(isSearched(pattern)).map(function (item) {
         var onDismiss = function onDismiss() {
           return _this2.onDismiss(item.objectID);
         };
@@ -69075,7 +69132,7 @@ function (_Component) {
     }
   }]);
 
-  return Books;
+  return Table;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Books);
