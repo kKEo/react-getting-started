@@ -19,6 +19,8 @@ const list = [
     },
 ];
 
+const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
+
 class Books extends Component {
 
     constructor(props) {
@@ -26,6 +28,7 @@ class Books extends Component {
 
         this.state = {
             list,
+            searchTerm: '',
         };
 
         this.onDismiss =  (id) => {
@@ -35,27 +38,41 @@ class Books extends Component {
             this.setState({list: updatedList});
             console.log(this.state.list);
         };
-    }
+
+        this.onSearchChange = (event) => {
+            this.setState({searchTerm: event.target.value });
+        }
+    };
+
 
     render() {
         return (
             <div className="books">
-                {this.state.list.map(item =>
-                        <div key={item.objectID}>
+                <form>
+                    <input type="text"
+                    onChange={this.onSearchChange} />
+                </form>
+                {this.state.list
+                    .filter(isSearched(this.state.searchTerm))
+                    .map(item => {
+                        const onDismiss = () => this.onDismiss(item.objectID);
+                        return (<div key={item.objectID}>
                             <span>{item.objectID}</span>
                             <span><a href={item.url}>{item.title}</a></span>
                             <span>{item.author}</span>
                             <span>{item.num_comments}</span>
                             <span>{item.points}</span>
                             <span>
-                                <button onClick={()=>this.onDismiss(item.objectID)}
+                                <button onClick={onDismiss}
                                         type="button">Dismiss</button>
                             </span>
-                        </div>
-                )}
+                        </div>)
+                    })}
             </div>
         );
     }
+
+
 }
 export default Books;
 

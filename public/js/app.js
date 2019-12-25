@@ -68998,6 +68998,12 @@ var list = [{
   objectID: 1
 }];
 
+var isSearched = function isSearched(searchTerm) {
+  return function (item) {
+    return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+  };
+};
+
 var Books =
 /*#__PURE__*/
 function (_Component) {
@@ -69010,7 +69016,8 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Books).call(this, props));
     _this.state = {
-      list: list
+      list: list,
+      searchTerm: ''
     };
 
     _this.onDismiss = function (id) {
@@ -69029,6 +69036,12 @@ function (_Component) {
       console.log(_this.state.list);
     };
 
+    _this.onSearchChange = function (event) {
+      _this.setState({
+        searchTerm: event.target.value
+      });
+    };
+
     return _this;
   }
 
@@ -69039,15 +69052,20 @@ function (_Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "books"
-      }, this.state.list.map(function (item) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        onChange: this.onSearchChange
+      })), this.state.list.filter(isSearched(this.state.searchTerm)).map(function (item) {
+        var onDismiss = function onDismiss() {
+          return _this2.onDismiss(item.objectID);
+        };
+
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: item.objectID
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.objectID), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
           href: item.url
         }, item.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.num_comments), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.points), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          onClick: function onClick() {
-            return _this2.onDismiss(item.objectID);
-          },
+          onClick: onDismiss,
           type: "button"
         }, "Dismiss")));
       }));
