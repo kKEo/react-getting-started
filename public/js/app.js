@@ -69003,19 +69003,53 @@ var Books =
 function (_Component) {
   _inherits(Books, _Component);
 
-  function Books() {
+  function Books(props) {
+    var _this;
+
     _classCallCheck(this, Books);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Books).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Books).call(this, props));
+    _this.state = {
+      list: list
+    };
+
+    _this.onDismiss = function (id) {
+      console.log("onDismiss: " + id);
+
+      var updatedList = _this.state.list.filter(function (item) {
+        return item.objectID !== id;
+      });
+
+      console.log(updatedList);
+
+      _this.setState({
+        list: updatedList
+      });
+
+      console.log(_this.state.list);
+    };
+
+    return _this;
   }
 
   _createClass(Books, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "books"
-      }, list.map(function (item) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, item.title);
+      }, this.state.list.map(function (item) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: item.objectID
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.objectID), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          href: item.url
+        }, item.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.num_comments), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.points), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: function onClick() {
+            return _this2.onDismiss(item.objectID);
+          },
+          type: "button"
+        }, "Dismiss")));
       }));
     }
   }]);
