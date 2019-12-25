@@ -46,14 +46,15 @@ class Books extends Component {
 
 
     render() {
+        const {searchTerm, list} = this.state;
         return (
             <div className="books">
                 <form>
                     <input type="text"
                     onChange={this.onSearchChange} />
                 </form>
-                {this.state.list
-                    .filter(isSearched(this.state.searchTerm))
+                {list
+                    .filter(isSearched(searchTerm))
                     .map(item => {
                         const onDismiss = () => this.onDismiss(item.objectID);
                         return (<div key={item.objectID}>

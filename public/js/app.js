@@ -69050,12 +69050,15 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
+      var _this$state = this.state,
+          searchTerm = _this$state.searchTerm,
+          list = _this$state.list;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "books"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         onChange: this.onSearchChange
-      })), this.state.list.filter(isSearched(this.state.searchTerm)).map(function (item) {
+      })), list.filter(isSearched(searchTerm)).map(function (item) {
         var onDismiss = function onDismiss() {
           return _this2.onDismiss(item.objectID);
         };
