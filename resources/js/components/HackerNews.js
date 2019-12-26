@@ -8,6 +8,8 @@ const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
 const PARAM_PAGE = 'page=';
 
+const DEFAULT_HPP = '4';
+
 const SEARCH_BASE = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}`;
 const url = `${SEARCH_BASE}${DEFAULT_QUERY}&${PARAM_PAGE}`;
 
@@ -48,7 +50,8 @@ class HackerNews extends Component {
 
     fetchSearchTopStories(searchTerm, page= 0) {
         const pageQuery = `&${PARAM_PAGE}${page}`;
-        fetch(`${SEARCH_BASE}${searchTerm}${pageQuery}`)
+        const hitsPerPageQuery = `&hitsPerPage=${DEFAULT_HPP}`;
+        fetch(`${SEARCH_BASE}${searchTerm}${pageQuery}${hitsPerPageQuery}`)
             .then(resp => resp.json())
             .then(res => this.setSearchTopStories(res))
             .catch(error => error);

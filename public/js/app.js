@@ -69547,6 +69547,7 @@ var PATH_BASE = 'https://hn.algolia.com/api/v1';
 var PATH_SEARCH = '/search';
 var PARAM_SEARCH = 'query=';
 var PARAM_PAGE = 'page=';
+var DEFAULT_HPP = '4';
 var SEARCH_BASE = "".concat(PATH_BASE).concat(PATH_SEARCH, "?").concat(PARAM_SEARCH);
 var url = "".concat(SEARCH_BASE).concat(DEFAULT_QUERY, "&").concat(PARAM_PAGE);
 
@@ -69615,7 +69616,8 @@ function (_Component) {
 
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var pageQuery = "&".concat(PARAM_PAGE).concat(page);
-      fetch("".concat(SEARCH_BASE).concat(searchTerm).concat(pageQuery)).then(function (resp) {
+      var hitsPerPageQuery = "&hitsPerPage=".concat(DEFAULT_HPP);
+      fetch("".concat(SEARCH_BASE).concat(searchTerm).concat(pageQuery).concat(hitsPerPageQuery)).then(function (resp) {
         return resp.json();
       }).then(function (res) {
         return _this3.setSearchTopStories(res);
