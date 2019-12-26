@@ -47,14 +47,24 @@ class HackerNews extends Component {
     }
 
     fetchSearchTopStories(searchTerm, page= 0) {
-        fetch(`${SEARCH_BASE}${searchTerm}&${PARAM_PAGE}${page}`)
+        const pageQuery = `&${PARAM_PAGE}${page}`;
+        fetch(`${SEARCH_BASE}${searchTerm}${pageQuery}`)
             .then(resp => resp.json())
             .then(res => this.setSearchTopStories(res))
             .catch(error => error);
     }
 
     setSearchTopStories(result) {
-        this.setState({result});
+        const {hits, page} = result;
+
+        const oldHits = page !== 0
+            ? this.state.result.hits : [];
+
+        const updatedHits = [ ...oldHits, ...hits];
+
+        this.setState({
+            result: { hits: updatedHits, page}
+        });
     }
 
     componentDidMount() {

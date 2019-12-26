@@ -69515,6 +69515,14 @@ var _this = undefined;
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -69606,7 +69614,8 @@ function (_Component) {
       var _this3 = this;
 
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      fetch("".concat(SEARCH_BASE).concat(searchTerm, "&").concat(PARAM_PAGE).concat(page)).then(function (resp) {
+      var pageQuery = "&".concat(PARAM_PAGE).concat(page);
+      fetch("".concat(SEARCH_BASE).concat(searchTerm).concat(pageQuery)).then(function (resp) {
         return resp.json();
       }).then(function (res) {
         return _this3.setSearchTopStories(res);
@@ -69617,8 +69626,15 @@ function (_Component) {
   }, {
     key: "setSearchTopStories",
     value: function setSearchTopStories(result) {
+      var hits = result.hits,
+          page = result.page;
+      var oldHits = page !== 0 ? this.state.result.hits : [];
+      var updatedHits = [].concat(_toConsumableArray(oldHits), _toConsumableArray(hits));
       this.setState({
-        result: result
+        result: {
+          hits: updatedHits,
+          page: page
+        }
       });
     }
   }, {
