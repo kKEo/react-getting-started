@@ -11,10 +11,6 @@
         <noscript>You need to enable JavaScript to run this app.</noscript>
 
         <div class="content">
-            <div class="title m-b-md">
-                Smoggitor
-            </div>
-
             <div id="root"></div>
         </div>
 
