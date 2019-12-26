@@ -69073,21 +69073,21 @@ function (_Component) {
   return Books;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-function Search(props) {
-  var value = props.value,
-      onChange = props.onChange,
-      children = props.children;
+var Search = function Search(_ref) {
+  var value = _ref.value,
+      onChange = _ref.onChange,
+      children = _ref.children;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, children, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "text",
     value: value,
     onChange: onChange
   }));
-}
+};
 
-function Table(props) {
-  var list = props.list,
-      pattern = props.pattern,
-      onDismiss = props.onDismiss;
+var Table = function Table(_ref2) {
+  var list = _ref2.list,
+      pattern = _ref2.pattern,
+      onDismiss = _ref2.onDismiss;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, list.filter(isSearched(pattern)).map(function (item) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: item.objectID
@@ -69099,19 +69099,19 @@ function Table(props) {
       }
     }, "Dismiss")));
   }));
-}
+};
 
-function Button(props) {
-  var onClick = props.onClick,
-      _props$className = props.className,
-      className = _props$className === void 0 ? '' : _props$className,
-      children = props.children;
+var Button = function Button(_ref3) {
+  var onClick = _ref3.onClick,
+      _ref3$className = _ref3.className,
+      className = _ref3$className === void 0 ? '' : _ref3$className,
+      children = _ref3.children;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     onClick: onClick,
     className: className,
     type: "button"
   }, children);
-}
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (Books);
 
