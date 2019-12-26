@@ -20,6 +20,7 @@ const list = [
     },
 ];
 
+const onDismiss = (item) => this.onDismiss(item);
 const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
 class Books extends Component {
@@ -45,7 +46,6 @@ class Books extends Component {
         }
     };
 
-
     render() {
         const {searchTerm, list} = this.state;
         return (
@@ -56,69 +56,62 @@ class Books extends Component {
                 </Search>
                 <Table list={list}
                        pattern={searchTerm}
-                       onChange={this.onSearchChange} />
+                       onDismiss={this.onDismiss} />
             </div>
         );
     }
 }
 
-class Search extends Component {
-    render() {
-        const {value, onChange, children} = this.props;
-        return (
-            <form>
-                {children} <input type="text"
-                       value={value}
-                       onChange={onChange} />
-            </form>
-        )
-    }
+function Search(props) {
+    const {value, onChange, children} = props;
+    return (
+        <form>
+            {children} <input type="text"
+                   value={value}
+                   onChange={onChange} />
+        </form>
+    )
 }
 
-class Table extends Component {
-    render() {
-        const {list, pattern, onDismiss} = this.props;
-        return (
-            <div>
-                {list.filter(isSearched(pattern))
-                    .map(item => {
-                        const onDismiss = () => this.onDismiss(item.objectID);
-                        return (
-                            <div key={item.objectID}>
-                                <span>{item.objectID}</span>
-                                <span><a href={item.url}>{item.title}</a></span>
-                                <span>{item.author}</span>
-                                <span>{item.num_comments}</span>
-                                <span>{item.points}</span>
-                                <span>
-                                    <Button onClick={onDismiss}
-                                            >Dismiss</Button>
-                                </span>
-                            </div>
-                        )
-                    })}
-            </div>
-        )
-    }
+function Table (props) {
+    const {list, pattern, onDismiss} = props;
+    return (
+        <div>
+            {list.filter(isSearched(pattern))
+                .map(item => {
+                    return (
+                        <div key={item.objectID}>
+                            <span>{item.objectID}</span>
+                            <span><a href={item.url}>{item.title}</a></span>
+                            <span>{item.author}</span>
+                            <span>{item.num_comments}</span>
+                            <span>{item.points}</span>
+                            <span>
+                                <Button onClick={() => onDismiss(item.objectID)}
+                                        >Dismiss</Button>
+                            </span>
+                        </div>
+                    )
+                })}
+        </div>
+    )
 }
 
-class Button extends Component {
-    render() {
-        const {
-            onClick,
-            className = '',
-            children,
-        } = this.props;
-        return (
-            <button
-                onClick={onClick}
-                className={className}
-                type="button"
-            >
-                {children}
-            </button>
-        );
-    }
+function Button (props) {
+    const {
+        onClick,
+        className = '',
+        children,
+    } = props;
+    return (
+        <button
+            onClick={onClick}
+            className={className}
+            type="button"
+        >
+            {children}
+        </button>
+    );
 }
 
 export default Books;

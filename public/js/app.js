@@ -68962,6 +68962,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+var _this = undefined;
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68998,6 +69000,10 @@ var list = [{
   objectID: 1
 }];
 
+var onDismiss = function onDismiss(item) {
+  return _this.onDismiss(item);
+};
+
 var isSearched = function isSearched(searchTerm) {
   return function (item) {
     return item.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -69010,39 +69016,39 @@ function (_Component) {
   _inherits(Books, _Component);
 
   function Books(props) {
-    var _this;
+    var _this2;
 
     _classCallCheck(this, Books);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Books).call(this, props));
-    _this.state = {
+    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(Books).call(this, props));
+    _this2.state = {
       list: list,
       searchTerm: ''
     };
 
-    _this.onDismiss = function (id) {
+    _this2.onDismiss = function (id) {
       console.log("onDismiss: " + id);
 
-      var updatedList = _this.state.list.filter(function (item) {
+      var updatedList = _this2.state.list.filter(function (item) {
         return item.objectID !== id;
       });
 
       console.log(updatedList);
 
-      _this.setState({
+      _this2.setState({
         list: updatedList
       });
 
-      console.log(_this.state.list);
+      console.log(_this2.state.list);
     };
 
-    _this.onSearchChange = function (event) {
-      _this.setState({
+    _this2.onSearchChange = function (event) {
+      _this2.setState({
         searchTerm: event.target.value
       });
     };
 
-    return _this;
+    return _this2;
   }
 
   _createClass(Books, [{
@@ -69059,7 +69065,7 @@ function (_Component) {
       }, "Search"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Table, {
         list: list,
         pattern: searchTerm,
-        onChange: this.onSearchChange
+        onDismiss: this.onDismiss
       }));
     }
   }]);
@@ -69067,103 +69073,45 @@ function (_Component) {
   return Books;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-var Search =
-/*#__PURE__*/
-function (_Component2) {
-  _inherits(Search, _Component2);
+function Search(props) {
+  var value = props.value,
+      onChange = props.onChange,
+      children = props.children;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, children, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    value: value,
+    onChange: onChange
+  }));
+}
 
-  function Search() {
-    _classCallCheck(this, Search);
+function Table(props) {
+  var list = props.list,
+      pattern = props.pattern,
+      onDismiss = props.onDismiss;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, list.filter(isSearched(pattern)).map(function (item) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: item.objectID
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.objectID), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      href: item.url
+    }, item.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.num_comments), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.points), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
+      onClick: function onClick() {
+        return onDismiss(item.objectID);
+      }
+    }, "Dismiss")));
+  }));
+}
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Search).apply(this, arguments));
-  }
-
-  _createClass(Search, [{
-    key: "render",
-    value: function render() {
-      var _this$props = this.props,
-          value = _this$props.value,
-          onChange = _this$props.onChange,
-          children = _this$props.children;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, children, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        value: value,
-        onChange: onChange
-      }));
-    }
-  }]);
-
-  return Search;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-var Table =
-/*#__PURE__*/
-function (_Component3) {
-  _inherits(Table, _Component3);
-
-  function Table() {
-    _classCallCheck(this, Table);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Table).apply(this, arguments));
-  }
-
-  _createClass(Table, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-
-      var _this$props2 = this.props,
-          list = _this$props2.list,
-          pattern = _this$props2.pattern,
-          onDismiss = _this$props2.onDismiss;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, list.filter(isSearched(pattern)).map(function (item) {
-        var onDismiss = function onDismiss() {
-          return _this2.onDismiss(item.objectID);
-        };
-
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: item.objectID
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.objectID), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-          href: item.url
-        }, item.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.num_comments), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, item.points), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
-          onClick: onDismiss
-        }, "Dismiss")));
-      }));
-    }
-  }]);
-
-  return Table;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-var Button =
-/*#__PURE__*/
-function (_Component4) {
-  _inherits(Button, _Component4);
-
-  function Button() {
-    _classCallCheck(this, Button);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Button).apply(this, arguments));
-  }
-
-  _createClass(Button, [{
-    key: "render",
-    value: function render() {
-      var _this$props3 = this.props,
-          onClick = _this$props3.onClick,
-          _this$props3$classNam = _this$props3.className,
-          className = _this$props3$classNam === void 0 ? '' : _this$props3$classNam,
-          children = _this$props3.children;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: onClick,
-        className: className,
-        type: "button"
-      }, children);
-    }
-  }]);
-
-  return Button;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+function Button(props) {
+  var onClick = props.onClick,
+      _props$className = props.className,
+      className = _props$className === void 0 ? '' : _props$className,
+      children = props.children;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: onClick,
+    className: className,
+    type: "button"
+  }, children);
+}
 
 /* harmony default export */ __webpack_exports__["default"] = (Books);
 
