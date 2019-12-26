@@ -69538,8 +69538,9 @@ var DEFAULT_QUERY = 'redux';
 var PATH_BASE = 'https://hn.algolia.com/api/v1';
 var PATH_SEARCH = '/search';
 var PARAM_SEARCH = 'query=';
+var PARAM_PAGE = 'page=';
 var SEARCH_BASE = "".concat(PATH_BASE).concat(PATH_SEARCH, "?").concat(PARAM_SEARCH);
-var url = "".concat(SEARCH_BASE).concat(DEFAULT_QUERY);
+var url = "".concat(SEARCH_BASE).concat(DEFAULT_QUERY, "&").concat(PARAM_PAGE);
 
 var onDismiss = function onDismiss(item) {
   return _this.onDismiss(item);
@@ -69604,7 +69605,8 @@ function (_Component) {
     value: function fetchSearchTopStories(searchTerm) {
       var _this3 = this;
 
-      fetch("".concat(SEARCH_BASE).concat(searchTerm)).then(function (resp) {
+      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      fetch("".concat(SEARCH_BASE).concat(searchTerm, "&").concat(PARAM_PAGE).concat(page)).then(function (resp) {
         return resp.json();
       }).then(function (res) {
         return _this3.setSearchTopStories(res);
@@ -69628,9 +69630,12 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       var _this$state = this.state,
           searchTerm = _this$state.searchTerm,
           result = _this$state.result;
+      var page = result && result.page || 0;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -69642,7 +69647,13 @@ function (_Component) {
       }, "Search")), result ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Table, {
         list: result.hits,
         onDismiss: this.onDismiss
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "no items"));
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "no items"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "interactions"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
+        onClick: function onClick() {
+          return _this4.fetchSearchTopStories(searchTerm, page + 1);
+        }
+      }, "More")));
     }
   }]);
 

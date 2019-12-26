@@ -6,9 +6,10 @@ const DEFAULT_QUERY = 'redux';
 const PATH_BASE = 'https://hn.algolia.com/api/v1';
 const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
+const PARAM_PAGE = 'page=';
 
 const SEARCH_BASE = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}`;
-const url = `${SEARCH_BASE}${DEFAULT_QUERY}`;
+const url = `${SEARCH_BASE}${DEFAULT_QUERY}&${PARAM_PAGE}`;
 
 const onDismiss = item => this.onDismiss(item);
 const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -45,8 +46,8 @@ class HackerNews extends Component {
 
     }
 
-    fetchSearchTopStories(searchTerm) {
-        fetch(`${SEARCH_BASE}${searchTerm}`)
+    fetchSearchTopStories(searchTerm, page= 0) {
+        fetch(`${SEARCH_BASE}${searchTerm}&${PARAM_PAGE}${page}`)
             .then(resp => resp.json())
             .then(res => this.setSearchTopStories(res))
             .catch(error => error);
@@ -63,7 +64,7 @@ class HackerNews extends Component {
 
     render() {
         const {searchTerm, result} = this.state;
-
+        const page = (result && result.page) || 0;
         return (
             <div className = "page">
                 <div className="interactions">
@@ -80,6 +81,11 @@ class HackerNews extends Component {
                     />
                     : <h5>no items</h5>
                 }
+                <div className="interactions">
+                    <Button onClick={() => this.fetchSearchTopStories(searchTerm, page + 1)}>
+                        More
+                    </Button>
+                </div>
             </div>
         );
     }
