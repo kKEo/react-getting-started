@@ -69567,6 +69567,7 @@ function (_Component) {
       searchTerm: DEFAULT_QUERY
     };
     _this2.setSearchTopStories = _this2.setSearchTopStories.bind(_assertThisInitialized(_this2));
+    _this2.onSearchSubmit = _this2.onSearchSubmit.bind(_assertThisInitialized(_this2));
 
     _this2.onDismiss = function (id) {
       var updatedHits = {
@@ -69587,10 +69588,31 @@ function (_Component) {
       });
     };
 
+    _this2.fetchSearchTopStories = _this2.fetchSearchTopStories.bind(_assertThisInitialized(_this2));
     return _this2;
   }
 
   _createClass(HackerNews, [{
+    key: "onSearchSubmit",
+    value: function onSearchSubmit(event) {
+      var searchTerm = this.state.searchTerm;
+      this.fetchSearchTopStories(searchTerm);
+      event.preventDefault();
+    }
+  }, {
+    key: "fetchSearchTopStories",
+    value: function fetchSearchTopStories(searchTerm) {
+      var _this3 = this;
+
+      fetch("".concat(SEARCH_BASE).concat(searchTerm)).then(function (resp) {
+        return resp.json();
+      }).then(function (res) {
+        return _this3.setSearchTopStories(res);
+      })["catch"](function (error) {
+        return error;
+      });
+    }
+  }, {
     key: "setSearchTopStories",
     value: function setSearchTopStories(result) {
       this.setState({
@@ -69600,16 +69622,8 @@ function (_Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this3 = this;
-
       var searchTerm = this.state.searchTerm;
-      fetch("".concat(SEARCH_BASE).concat(searchTerm)).then(function (resp) {
-        return resp.json();
-      }).then(function (res) {
-        return _this3.setSearchTopStories(res);
-      })["catch"](function (error) {
-        return error;
-      });
+      this.fetchSearchTopStories(searchTerm);
     }
   }, {
     key: "render",
@@ -69623,10 +69637,10 @@ function (_Component) {
         className: "interactions"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Search, {
         value: searchTerm,
-        onChange: this.onSearchChange
+        onChange: this.onSearchChange,
+        onSubmit: this.onSearchSubmit
       }, "Search")), result ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Table, {
         list: result.hits,
-        pattern: searchTerm,
         onDismiss: this.onDismiss
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "no items"));
     }
@@ -69638,21 +69652,25 @@ function (_Component) {
 var Search = function Search(_ref) {
   var value = _ref.value,
       onChange = _ref.onChange,
+      onSubmit = _ref.onSubmit,
       children = _ref.children;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, children, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    onSubmit: onSubmit
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     type: "text",
     value: value,
     onChange: onChange
-  }));
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "submit"
+  }, children));
 };
 
 var Table = function Table(_ref2) {
   var list = _ref2.list,
-      pattern = _ref2.pattern,
       onDismiss = _ref2.onDismiss;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "table"
-  }, list.filter(isSearched(pattern)).map(function (item) {
+  }, list.map(function (item) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: item.objectID,
       className: "table-row"

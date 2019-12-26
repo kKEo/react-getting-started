@@ -23,6 +23,7 @@ class HackerNews extends Component {
         };
 
         this.setSearchTopStories = this.setSearchTopStories.bind(this);
+        this.onSearchSubmit = this.onSearchSubmit.bind(this);
 
         this.onDismiss =  (id) => {
             const updatedHits = { hits: this.state.result.hits.filter((item) => item.objectID !== id) };
@@ -33,6 +34,22 @@ class HackerNews extends Component {
         this.onSearchChange = (event) => {
             this.setState({searchTerm: event.target.value });
         }
+
+        this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
+    }
+
+    onSearchSubmit(event) {
+        const {searchTerm} = this.state;
+        this.fetchSearchTopStories(searchTerm);
+        event.preventDefault();
+
+    }
+
+    fetchSearchTopStories(searchTerm) {
+        fetch(`${SEARCH_BASE}${searchTerm}`)
+            .then(resp => resp.json())
+            .then(res => this.setSearchTopStories(res))
+            .catch(error => error);
     }
 
     setSearchTopStories(result) {
@@ -41,10 +58,7 @@ class HackerNews extends Component {
 
     componentDidMount() {
         const {searchTerm} = this.state;
-        fetch(`${SEARCH_BASE}${searchTerm}`)
-            .then(resp => resp.json())
-            .then(res => this.setSearchTopStories(res))
-            .catch(error => error);
+        this.fetchSearchTopStories(searchTerm);
     }
 
     render() {
@@ -54,14 +68,14 @@ class HackerNews extends Component {
             <div className = "page">
                 <div className="interactions">
                     <Search value={searchTerm}
-                            onChange={this.onSearchChange} >
+                            onChange={this.onSearchChange}
+                            onSubmit={this.onSearchSubmit}>
                         Search
                     </Search>
                 </div>
                 { result ?
                     <Table
                         list={result.hits}
-                        pattern={searchTerm}
                         onDismiss={this.onDismiss}
                     />
                     : <h5>no items</h5>
@@ -71,17 +85,19 @@ class HackerNews extends Component {
     }
 }
 
-const Search = ({value, onChange, children}) =>
-    <form>
-        {children} <input type="text"
-                          value={value}
-                          onChange={onChange} />
+const Search = ({value, onChange, onSubmit, children}) =>
+    <form onSubmit={onSubmit}>
+        <input type="text"
+               value={value}
+               onChange={onChange} />
+        <button type="submit">
+            {children}
+        </button>
     </form>;
 
-const Table = ({list, pattern, onDismiss}) =>
+const Table = ({list, onDismiss}) =>
     <div className="table">
-        {list.filter(isSearched(pattern))
-            .map(item => {
+        {list.map(item => {
                 return (
                     <div key={item.objectID} className="table-row">
                         <span style={{width: '40%'}}>
