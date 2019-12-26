@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from "react-dom";
+import './css/Books.css';
 
 const DEFAULT_QUERY = 'redux';
 const PATH_BASE = 'https://hn.algolia.com/api/v1';
@@ -48,7 +49,7 @@ class HackerNews extends Component {
 
     render() {
         const {searchTerm, result} = this.state;
-        if (!result) {return null;}
+
         return (
             <div className = "page">
                 <div className="interactions">
@@ -57,12 +58,14 @@ class HackerNews extends Component {
                         Search
                     </Search>
                 </div>
-
-                <Table
-                    list={result.hits}
-                    pattern={searchTerm}
-                    onDismiss={this.onDismiss}
-                />
+                { result ?
+                    <Table
+                        list={result.hits}
+                        pattern={searchTerm}
+                        onDismiss={this.onDismiss}
+                    />
+                    : <h5>no items</h5>
+                }
             </div>
         );
     }
