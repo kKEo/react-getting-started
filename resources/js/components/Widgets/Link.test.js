@@ -8,3 +8,15 @@ it ('renders correctly', () => {
         .toJSON();
     expect(tree).toMatchSnapshot();
 });
+
+it('renders as an anchor when no page is set', () => {
+    const tree = renderer.create(<Link>Facebook</Link>).toJSON();
+    expect(tree).toMatchSnapshot();
+});
+
+it('properly escapes quotes', () => {
+   const tree = renderer
+       .create(<Link>{"\"Everythink\" \\'is\\ 'awesome'"}</Link>)
+       .toJSON();
+   expect(tree).toMatchSnapshot();
+});
