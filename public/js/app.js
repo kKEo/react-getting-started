@@ -69511,8 +69511,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _css_Books_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./css/Books.css */ "./resources/js/components/css/Books.css");
 /* harmony import */ var _css_Books_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_css_Books_css__WEBPACK_IMPORTED_MODULE_2__);
-var _this = undefined;
-
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants */ "./resources/js/constants/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -69542,24 +69541,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var DEFAULT_QUERY = 'redux';
-var PATH_BASE = 'https://hn.algolia.com/api/v1';
-var PATH_SEARCH = '/search';
-var PARAM_SEARCH = 'query=';
-var PARAM_PAGE = 'page=';
-var DEFAULT_HPP = '4';
-var SEARCH_BASE = "".concat(PATH_BASE).concat(PATH_SEARCH, "?").concat(PARAM_SEARCH);
-var url = "".concat(SEARCH_BASE).concat(DEFAULT_QUERY, "&").concat(PARAM_PAGE);
 
-var onDismiss = function onDismiss(item) {
-  return _this.onDismiss(item);
-};
-
-var isSearched = function isSearched(searchTerm) {
-  return function (item) {
-    return item.title.toLowerCase().includes(searchTerm.toLowerCase());
-  };
-};
 
 var HackerNews =
 /*#__PURE__*/
@@ -69567,39 +69549,39 @@ function (_Component) {
   _inherits(HackerNews, _Component);
 
   function HackerNews(props) {
-    var _this2;
+    var _this;
 
     _classCallCheck(this, HackerNews);
 
-    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(HackerNews).call(this, props));
-    _this2.state = {
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(HackerNews).call(this, props));
+    _this.state = {
       result: null,
-      searchTerm: DEFAULT_QUERY
+      searchTerm: _constants__WEBPACK_IMPORTED_MODULE_3__["DEFAULT_QUERY"]
     };
-    _this2.setSearchTopStories = _this2.setSearchTopStories.bind(_assertThisInitialized(_this2));
-    _this2.onSearchSubmit = _this2.onSearchSubmit.bind(_assertThisInitialized(_this2));
+    _this.setSearchTopStories = _this.setSearchTopStories.bind(_assertThisInitialized(_this));
+    _this.onSearchSubmit = _this.onSearchSubmit.bind(_assertThisInitialized(_this));
 
-    _this2.onDismiss = function (id) {
+    _this.onDismiss = function (id) {
       var updatedHits = {
-        hits: _this2.state.result.hits.filter(function (item) {
+        hits: _this.state.result.hits.filter(function (item) {
           return item.objectID !== id;
         })
       };
-      var updatedResult = Object.assign({}, _this2.state.result, updatedHits);
+      var updatedResult = Object.assign({}, _this.state.result, updatedHits);
 
-      _this2.setState({
+      _this.setState({
         result: updatedResult
       });
     };
 
-    _this2.onSearchChange = function (event) {
-      _this2.setState({
+    _this.onSearchChange = function (event) {
+      _this.setState({
         searchTerm: event.target.value
       });
     };
 
-    _this2.fetchSearchTopStories = _this2.fetchSearchTopStories.bind(_assertThisInitialized(_this2));
-    return _this2;
+    _this.fetchSearchTopStories = _this.fetchSearchTopStories.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(HackerNews, [{
@@ -69612,15 +69594,15 @@ function (_Component) {
   }, {
     key: "fetchSearchTopStories",
     value: function fetchSearchTopStories(searchTerm) {
-      var _this3 = this;
+      var _this2 = this;
 
       var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-      var pageQuery = "&".concat(PARAM_PAGE).concat(page);
-      var hitsPerPageQuery = "&hitsPerPage=".concat(DEFAULT_HPP);
-      fetch("".concat(SEARCH_BASE).concat(searchTerm).concat(pageQuery).concat(hitsPerPageQuery)).then(function (resp) {
+      var pageQuery = "&".concat(_constants__WEBPACK_IMPORTED_MODULE_3__["PARAM_PAGE"]).concat(page);
+      var hitsPerPageQuery = "&hitsPerPage=".concat(_constants__WEBPACK_IMPORTED_MODULE_3__["DEFAULT_HPP"]);
+      fetch("".concat(_constants__WEBPACK_IMPORTED_MODULE_3__["SEARCH_BASE"]).concat(searchTerm).concat(pageQuery).concat(hitsPerPageQuery)).then(function (resp) {
         return resp.json();
       }).then(function (res) {
-        return _this3.setSearchTopStories(res);
+        return _this2.setSearchTopStories(res);
       })["catch"](function (error) {
         return error;
       });
@@ -69648,7 +69630,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       var _this$state = this.state,
           searchTerm = _this$state.searchTerm,
@@ -69669,7 +69651,7 @@ function (_Component) {
         className: "interactions"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Button, {
         onClick: function onClick() {
-          return _this4.fetchSearchTopStories(searchTerm, page + 1);
+          return _this3.fetchSearchTopStories(searchTerm, page + 1);
         }
       }, "More")));
     }
@@ -69781,6 +69763,30 @@ var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/a
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
+
+/***/ }),
+
+/***/ "./resources/js/constants/index.js":
+/*!*****************************************!*\
+  !*** ./resources/js/constants/index.js ***!
+  \*****************************************/
+/*! exports provided: DEFAULT_QUERY, PARAM_PAGE, DEFAULT_HPP, SEARCH_BASE */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DEFAULT_QUERY", function() { return DEFAULT_QUERY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PARAM_PAGE", function() { return PARAM_PAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DEFAULT_HPP", function() { return DEFAULT_HPP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEARCH_BASE", function() { return SEARCH_BASE; });
+var DEFAULT_QUERY = 'redux';
+var PATH_BASE = 'https://hn.algolia.com/api/v1';
+var PATH_SEARCH = '/search';
+var PARAM_SEARCH = 'query=';
+var PARAM_PAGE = 'page=';
+var DEFAULT_HPP = '4';
+var SEARCH_BASE = "".concat(PATH_BASE).concat(PATH_SEARCH, "?").concat(PARAM_SEARCH);
+
 
 /***/ }),
 

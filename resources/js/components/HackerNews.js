@@ -2,19 +2,12 @@ import React, {Component} from 'react';
 import ReactDOM from "react-dom";
 import './css/Books.css';
 
-const DEFAULT_QUERY = 'redux';
-const PATH_BASE = 'https://hn.algolia.com/api/v1';
-const PATH_SEARCH = '/search';
-const PARAM_SEARCH = 'query=';
-const PARAM_PAGE = 'page=';
-
-const DEFAULT_HPP = '4';
-
-const SEARCH_BASE = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}`;
-const url = `${SEARCH_BASE}${DEFAULT_QUERY}&${PARAM_PAGE}`;
-
-const onDismiss = item => this.onDismiss(item);
-const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
+import {
+    DEFAULT_QUERY,
+    PARAM_PAGE,
+    DEFAULT_HPP,
+    SEARCH_BASE
+} from '../constants'
 
 class HackerNews extends Component {
     constructor(props) {
