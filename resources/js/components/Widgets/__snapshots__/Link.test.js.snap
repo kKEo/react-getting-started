@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`changes the class when hovered 1`] = `
+<a
+  className="normal"
+  href="https://centrumrekodziela.pl"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  Centrum
+</a>
+`;
+
+exports[`changes the class when hovered 2`] = `
+<a
+  className="hovered"
+  href="https://centrumrekodziela.pl"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  Centrum
+</a>
+`;
+
+exports[`changes the class when hovered 3`] = `
+<a
+  className="normal"
+  href="https://centrumrekodziela.pl"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  Centrum
+</a>
+`;
+
 exports[`properly escapes quotes 1`] = `
 <a
   className="normal"

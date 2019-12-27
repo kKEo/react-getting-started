@@ -20,3 +20,18 @@ it('properly escapes quotes', () => {
        .toJSON();
    expect(tree).toMatchSnapshot();
 });
+
+it('changes the class when hovered', () => {
+    const component = renderer
+        .create(<Link page="https://centrumrekodziela.pl">Centrum</Link>);
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+    tree.props.onMouseEnter();
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+    tree.props.onMouseLeave();
+    tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+});
