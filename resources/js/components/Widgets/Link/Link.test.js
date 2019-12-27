@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from './Link';
+import Link from '.';
 import renderer from 'react-test-renderer';
 
 it ('renders correctly', () => {
