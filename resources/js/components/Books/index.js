@@ -35,7 +35,7 @@ const smallColumn = {
     width: '10%',
 };
 
-class Books extends Component {
+class Index extends Component {
 
     constructor(props) {
         super(props);
@@ -111,8 +111,8 @@ const Button = ({ onClick, className = '', children }) =>
         {children}
     </button>
 
-export default Books;
+export default Index;
 
 if (document.getElementById('root')) {
-    ReactDOM.render(<Books />, document.getElementById('root'));
+    ReactDOM.render(<Index />, document.getElementById('root'));
 }

@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import ReactDOM from "react-dom";
-import './css/Books.css';
+import './css/HackerNews.css';
 
 import {
     DEFAULT_QUERY,
     PARAM_PAGE,
     DEFAULT_HPP,
     SEARCH_BASE
-} from '../constants'
+} from '../../constants';
 
-class HackerNews extends Component {
+class Index extends Component {
     constructor(props) {
         super(props);
 
@@ -134,8 +134,8 @@ const Button = ({ onClick, className = '', children }) =>
         {children}
     </button>;
 
-export default HackerNews;
+export default Index;
 
 if (document.getElementById('root')) {
-    ReactDOM.render(<HackerNews />, document.getElementById('root'));
+    ReactDOM.render(<Index />, document.getElementById('root'));
 }
