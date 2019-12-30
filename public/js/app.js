@@ -69833,7 +69833,22 @@ var TodoList = function TodoList(_ref3) {
         return onTodoClick(todo.id);
       }
     }));
-  }), ";");
+  }));
+};
+
+var AddTodo = function AddTodo(_ref4) {
+  var onButtonClicked = _ref4.onButtonClicked;
+  var input;
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+    ref: function ref(node) {
+      return input = node;
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+    onClick: function onClick() {
+      onButtonClicked(input.value);
+      input.value = '';
+    }
+  }, "Add Todo"));
 };
 
 var nextTodoId = 0;
@@ -69852,26 +69867,19 @@ function (_Component) {
   _createClass(TodoApp, [{
     key: "render",
     value: function render() {
-      var _this = this;
-
       var _this$props = this.props,
           todos = _this$props.todos,
           visibilityFilter = _this$props.visibilityFilter;
       var visibleTodos = getVisibleTodos(todos, visibilityFilter);
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
-        ref: function ref(node) {
-          _this.input = node;
-        }
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        onClick: function onClick() {
-          store.dispatch({
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(AddTodo, {
+        onButtonClicked: function onButtonClicked(text) {
+          return store.dispatch({
             type: 'ADD_TODO',
-            text: _this.input.value,
+            text: text,
             id: nextTodoId++
           });
-          _this.input.value = '';
         }
-      }, "Add Todo"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoList, {
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoList, {
         todos: visibleTodos,
         onTodoClick: function onTodoClick(id) {
           store.dispatch({

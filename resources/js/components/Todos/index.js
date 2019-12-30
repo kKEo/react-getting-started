@@ -118,9 +118,26 @@ const TodoList = ({
                   {...todo}
                   onClick={() => onTodoClick(todo.id)}
             />
-        )};
+        )}
     </ul>
 );
+
+const AddTodo = ({
+    onButtonClicked
+}) => {
+    let input;
+    return (
+        <div>
+            <input ref={ node => input = node } />
+            <button onClick={() => {
+                onButtonClicked(input.value);
+                input.value = '';
+            }}>
+            Add Todo
+            </button>
+        </div>
+    )
+};
 
 let nextTodoId = 0;
 class TodoApp extends Component {
@@ -130,19 +147,15 @@ class TodoApp extends Component {
 
         return (
             <div>
-                <input ref={node => {
-                    this.input = node;
-                }} />
-                <button onClick={() => {
-                    store.dispatch({
-                        type: 'ADD_TODO',
-                        text: this.input.value,
-                        id: nextTodoId++
-                    });
-                    this.input.value = '';
-                }}>
-                    Add Todo
-                </button>
+                <AddTodo
+                    onButtonClicked={text =>
+                        store.dispatch({
+                            type: 'ADD_TODO',
+                            text: text,
+                            id: nextTodoId++
+                        })
+                    }
+                />
                 <TodoList
                     todos={visibleTodos}
                     onTodoClick={id => {
