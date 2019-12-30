@@ -69769,6 +69769,39 @@ var todoApp = Object(redux__WEBPACK_IMPORTED_MODULE_2__["combineReducers"])({
 });
 var store = Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(todoApp);
 var Component = react__WEBPACK_IMPORTED_MODULE_1___default.a.Component;
+
+var FilterLink = function FilterLink(_ref) {
+  var filter = _ref.filter,
+      children = _ref.children;
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+    href: "#",
+    onClick: function onClick(e) {
+      e.preventDefault();
+      store.dispatch({
+        type: 'SET_VISIBILITY_FILTER',
+        filter: filter
+      });
+    }
+  }, " ", children, " ");
+};
+
+var getVisibleTodos = function getVisibleTodos(todos, filter) {
+  switch (filter) {
+    case 'SHOW_ALL':
+      return todos;
+
+    case 'SHOW_COMPLETED':
+      return todos.filter(function (t) {
+        return t.completed;
+      });
+
+    case 'SHOW_ACTIVE':
+      return todos.filter(function (t) {
+        return !t.completed;
+      });
+  }
+};
+
 var nextTodoId = 0;
 
 var TodoApp =
@@ -69787,6 +69820,7 @@ function (_Component) {
     value: function render() {
       var _this = this;
 
+      var visibleTodos = getVisibleTodos(this.props.todos, this.props.visibilityFilter);
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         ref: function ref(node) {
           _this.input = node;
@@ -69800,7 +69834,7 @@ function (_Component) {
           });
           _this.input.value = '';
         }
-      }, "Add Todo"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", null, this.props.todos.map(function (todo) {
+      }, "Add Todo"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", null, visibleTodos.map(function (todo) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
           key: todo.id,
           onClick: function onClick() {
@@ -69813,7 +69847,13 @@ function (_Component) {
             textDecoration: todo.completed ? 'line-through' : 'none'
           }
         }, todo.text);
-      })));
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Show:", ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
+        filter: "SHOW_ALL"
+      }, "All"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
+        filter: "SHOW_ACTIVE"
+      }, "Active"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
+        filter: "SHOW_COMPLETED"
+      }, "Completed")));
     }
   }]);
 
@@ -69821,9 +69861,7 @@ function (_Component) {
 }(Component);
 
 var render = function render() {
-  return react_dom__WEBPACK_IMPORTED_MODULE_0___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoApp, {
-    todos: store.getState().todos
-  }), document.getElementById('root'));
+  return react_dom__WEBPACK_IMPORTED_MODULE_0___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoApp, store.getState()), document.getElementById('root'));
 };
 
 store.subscribe(render);
