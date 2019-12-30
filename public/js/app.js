@@ -69772,7 +69772,13 @@ var Component = react__WEBPACK_IMPORTED_MODULE_1___default.a.Component;
 
 var FilterLink = function FilterLink(_ref) {
   var filter = _ref.filter,
+      currentFilter = _ref.currentFilter,
       children = _ref.children;
+
+  if (filter === currentFilter) {
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, children);
+  }
+
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
     href: "#",
     onClick: function onClick(e) {
@@ -69820,7 +69826,10 @@ function (_Component) {
     value: function render() {
       var _this = this;
 
-      var visibleTodos = getVisibleTodos(this.props.todos, this.props.visibilityFilter);
+      var _this$props = this.props,
+          todos = _this$props.todos,
+          visibilityFilter = _this$props.visibilityFilter;
+      var visibleTodos = getVisibleTodos(todos, visibilityFilter);
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
         ref: function ref(node) {
           _this.input = node;
@@ -69848,11 +69857,14 @@ function (_Component) {
           }
         }, todo.text);
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Show:", ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
-        filter: "SHOW_ALL"
+        filter: "SHOW_ALL",
+        currentFilter: visibilityFilter
       }, "All"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
-        filter: "SHOW_ACTIVE"
+        filter: "SHOW_ACTIVE",
+        currentFilter: visibilityFilter
       }, "Active"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
-        filter: "SHOW_COMPLETED"
+        filter: "SHOW_COMPLETED",
+        currentFilter: visibilityFilter
       }, "Completed")));
     }
   }]);
@@ -69887,8 +69899,8 @@ render();
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/krma/Work/smoggitor-web/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/krma/Work/smoggitor-web/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/krma/Work/react-getting-started/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/krma/Work/react-getting-started/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
