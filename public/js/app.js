@@ -69851,6 +69851,24 @@ var AddTodo = function AddTodo(_ref4) {
   }, "Add Todo"));
 };
 
+var Filters = function Filters(_ref5) {
+  var visibilityFilter = _ref5.visibilityFilter,
+      onFilterClick = _ref5.onFilterClick;
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Show:", ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
+    filter: "SHOW_ALL",
+    currentFilter: visibilityFilter,
+    onClick: onFilterClick
+  }, "All"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
+    filter: "SHOW_ACTIVE",
+    currentFilter: visibilityFilter,
+    onClick: onFilterClick
+  }, "Active"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
+    filter: "SHOW_COMPLETED",
+    currentFilter: visibilityFilter,
+    onClick: onFilterClick
+  }, "Completed"));
+};
+
 var nextTodoId = 0;
 
 var TodoApp =
@@ -69887,16 +69905,15 @@ function (_Component) {
             id: id
           });
         }
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Show:", ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
-        filter: "SHOW_ALL",
-        currentFilter: visibilityFilter
-      }, "All"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
-        filter: "SHOW_ACTIVE",
-        currentFilter: visibilityFilter
-      }, "Active"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
-        filter: "SHOW_COMPLETED",
-        currentFilter: visibilityFilter
-      }, "Completed")));
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Filters, {
+        visibilityFilter: visibilityFilter,
+        onFilterClick: function onFilterClick(filter) {
+          return store.dispatch({
+            type: 'SET_VISIBILITY_FILTER',
+            filter: filter
+          });
+        }
+      }));
     }
   }]);
 
