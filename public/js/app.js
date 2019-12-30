@@ -69694,6 +69694,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -69820,6 +69822,20 @@ var Todo = function Todo(_ref2) {
   }, text);
 };
 
+var TodoList = function TodoList(_ref3) {
+  var todos = _ref3.todos,
+      onTodoClick = _ref3.onTodoClick;
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", null, todos.map(function (todo) {
+    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Todo, _extends({
+      key: todo.id
+    }, todo, {
+      onClick: function onClick() {
+        return onTodoClick(todo.id);
+      }
+    }));
+  }), ";");
+};
+
 var nextTodoId = 0;
 
 var TodoApp =
@@ -69855,19 +69871,15 @@ function (_Component) {
           });
           _this.input.value = '';
         }
-      }, "Add Todo"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", null, visibleTodos.map(function (todo) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Todo, {
-          key: todo.id,
-          onClick: function onClick() {
-            store.dispatch({
-              type: 'TOGGLE_TODO',
-              id: todo.id
-            });
-          },
-          text: todo.text,
-          completed: todo.completed
-        });
-      }), ";"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Show:", ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
+      }, "Add Todo"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoList, {
+        todos: visibleTodos,
+        onTodoClick: function onTodoClick(id) {
+          store.dispatch({
+            type: 'TOGGLE_TODO',
+            id: id
+          });
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Show:", ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
         filter: "SHOW_ALL",
         currentFilter: visibilityFilter
       }, "All"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {

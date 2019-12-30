@@ -106,7 +106,21 @@ const Todo = ({
     >
         {text}
     </li>
-)
+);
+
+const TodoList = ({
+    todos,
+    onTodoClick
+}) => (
+    <ul>
+        {todos.map(todo =>
+            <Todo key={todo.id}
+                  {...todo}
+                  onClick={() => onTodoClick(todo.id)}
+            />
+        )};
+    </ul>
+);
 
 let nextTodoId = 0;
 class TodoApp extends Component {
@@ -129,20 +143,15 @@ class TodoApp extends Component {
                 }}>
                     Add Todo
                 </button>
-                <ul>
-                    {visibleTodos.map(todo =>
-                        <Todo key={todo.id}
-                              onClick={() => {
-                                    store.dispatch({
-                                        type: 'TOGGLE_TODO',
-                                        id: todo.id
-                                    });
-                              }}
-                              text={todo.text}
-                              completed={todo.completed}
-                            />
-                    )};
-                </ul>
+                <TodoList
+                    todos={visibleTodos}
+                    onTodoClick={id => {
+                        store.dispatch({
+                            type: 'TOGGLE_TODO',
+                            id
+                        });
+                    }}
+                />
                 <p>
                 Show:
                 {' '} <FilterLink filter='SHOW_ALL'
