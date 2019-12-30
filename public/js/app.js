@@ -69802,7 +69802,16 @@ function (_Component) {
         }
       }, "Add Todo"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", null, this.props.todos.map(function (todo) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
-          key: todo.id
+          key: todo.id,
+          onClick: function onClick() {
+            store.dispatch({
+              type: 'TOGGLE_TODO',
+              id: todo.id
+            });
+          },
+          style: {
+            textDecoration: todo.completed ? 'line-through' : 'none'
+          }
         }, todo.text);
       })));
     }
