@@ -92,6 +92,22 @@ const getVisibleTodos = (
     }
 }
 
+const Todo = ({
+    onClick,
+    completed,
+    text
+}) => (
+    <li onClick = {onClick}
+        style={{
+            textDecoration:
+                completed ?
+                    'line-through' : 'none'
+        }}
+    >
+        {text}
+    </li>
+)
+
 let nextTodoId = 0;
 class TodoApp extends Component {
     render () {
@@ -115,22 +131,17 @@ class TodoApp extends Component {
                 </button>
                 <ul>
                     {visibleTodos.map(todo =>
-                        <li key={todo.id}
-                            onClick = {() => {
-                                store.dispatch({
-                                   type: 'TOGGLE_TODO',
-                                   id: todo.id
-                                });
-                            }}
-                            style={{
-                                textDecoration:
-                                    todo.completed ?
-                                        'line-through' : 'none'
-                            }}
-                        >
-                            {todo.text}
-                        </li>
-                    )}
+                        <Todo key={todo.id}
+                              onClick={() => {
+                                    store.dispatch({
+                                        type: 'TOGGLE_TODO',
+                                        id: todo.id
+                                    });
+                              }}
+                              text={todo.text}
+                              completed={todo.completed}
+                            />
+                    )};
                 </ul>
                 <p>
                 Show:
