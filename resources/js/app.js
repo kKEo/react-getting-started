@@ -1,3 +1,3 @@
 require('./bootstrap');
 
-require('./components/HackerNews');
+require('./components/Todos');
