@@ -36,6 +36,30 @@ const todos = (state =[], action) => {
     }
 };
 
+
+let nextTodoId = 0;
+const addTodo = (text) => {
+    return {
+        type: 'ADD_TODO',
+        id: nextTodoId++,
+        text
+    }
+};
+
+const setVisibilityFilter = (filter) => {
+    return {
+        type: 'SET_VISIBILITY_FILTER',
+        filter
+    };
+};
+
+const toggleTodo = (id) => {
+    return {
+        type: 'TOGGLE_TODO',
+        id
+    }
+}
+
 const visibilityFilter = (
     state = 'SHOW_ALL',
     action
@@ -79,10 +103,7 @@ const FilterLink = connect (
     (dispatch, ownProps) => {
         return {
             onClick: () => {
-                dispatch({
-                    type: 'SET_VISIBILITY_FILTER',
-                    filter: ownProps.filter
-                });
+                dispatch(setVisibilityFilter(ownProps.filter));
             }
         }
     }
@@ -135,18 +156,13 @@ const TodoList = ({
     </ul>
 );
 
-let nextTodoId = 0;
 let AddTodo = ({dispatch}) => {
     let input;
     return (
         <div>
             <input ref={ node => input = node } />
             <button onClick={() => {
-                dispatch({
-                    type: 'ADD_TODO',
-                    text: input.value,
-                    id: nextTodoId++
-                });
+                dispatch(addTodo(input.value));
                 input.value = '';
             }}>
                 Add Todo
@@ -178,10 +194,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onTodoClick: (id) => {
-            dispatch({
-                type: 'TOGGLE_TODO',
-                id
-            })
+            dispatch(toggleTodo(id))
         }
     }
 }
