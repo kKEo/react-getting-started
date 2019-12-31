@@ -72606,8 +72606,8 @@ var TodoList = function TodoList(_ref3) {
 
 var nextTodoId = 0;
 
-var AddTodo = function AddTodo(props, _ref4) {
-  var store = _ref4.store;
+var AddTodo = function AddTodo(_ref4) {
+  var dispatch = _ref4.dispatch;
   var input;
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     ref: function ref(node) {
@@ -72615,7 +72615,7 @@ var AddTodo = function AddTodo(props, _ref4) {
     }
   }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
     onClick: function onClick() {
-      store.dispatch({
+      dispatch({
         type: 'ADD_TODO',
         text: input.value,
         id: nextTodoId++
@@ -72625,9 +72625,7 @@ var AddTodo = function AddTodo(props, _ref4) {
   }, "Add Todo"));
 };
 
-AddTodo.contextTypes = {
-  store: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
-};
+AddTodo = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])()(AddTodo);
 
 var Filters = function Filters() {
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Show:", ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {

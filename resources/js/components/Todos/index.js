@@ -159,13 +159,13 @@ const TodoList = ({
 
 
 let nextTodoId = 0;
-const AddTodo = (props, {store}) => {
+let AddTodo = ({dispatch}) => {
     let input;
     return (
         <div>
             <input ref={ node => input = node } />
             <button onClick={() => {
-                store.dispatch({
+                dispatch({
                     type: 'ADD_TODO',
                     text: input.value,
                     id: nextTodoId++
@@ -177,9 +177,7 @@ const AddTodo = (props, {store}) => {
         </div>
     )
 };
-AddTodo.contextTypes = {
-    store: PropTypes.object
-};
+AddTodo = connect()(AddTodo);
 
 const Filters = () => (
     <p>
