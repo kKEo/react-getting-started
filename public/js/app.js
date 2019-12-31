@@ -72639,59 +72639,24 @@ var Filters = function Filters() {
   }, "Completed"));
 };
 
-var VisibleTodoList =
-/*#__PURE__*/
-function (_Component2) {
-  _inherits(VisibleTodoList, _Component2);
-
-  function VisibleTodoList() {
-    _classCallCheck(this, VisibleTodoList);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(VisibleTodoList).apply(this, arguments));
-  }
-
-  _createClass(VisibleTodoList, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      var store = this.context.store;
-      this.unsubscribe = store.subscribe(function () {
-        _this2.forceUpdate();
-      });
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this.unsubscribe();
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var store = this.context.store;
-      var state = store.getState();
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoList, {
-        todos: getVisibleTodos(state.todos, state.visibilityFilter),
-        onTodoClick: function onTodoClick(id) {
-          return store.dispatch({
-            type: 'TOGGLE_TODO',
-            id: id
-          });
-        }
-      });
-    }
-  }]);
-
-  return VisibleTodoList;
-}(Component);
-
-VisibleTodoList.contextTypes = {
-  store: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.shape({
-    subscribe: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired,
-    dispatch: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired,
-    getState: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
-  })
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+  };
 };
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    onTodoClick: function onTodoClick(id) {
+      dispatch({
+        type: 'TOGGLE_TODO',
+        id: id
+      });
+    }
+  };
+};
+
+var VisibleTodoList = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps, mapDispatchToProps)(TodoList);
 
 var TodoApp = function TodoApp() {
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(AddTodo, null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(VisibleTodoList, null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Filters, null));
