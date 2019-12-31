@@ -2,6 +2,7 @@ import ReactDOM from "react-dom";
 import React from "react";
 import PropTypes from "prop-types";
 import {createStore, combineReducers} from "redux";
+import {Provider} from "react-redux";
 
 const todo = (state, action) => {
     switch(action.type) {
@@ -225,9 +226,12 @@ class VisibleTodoList extends Component {
     }
 }
 VisibleTodoList.contextTypes = {
-    store: PropTypes.object
-}
-
+    store: PropTypes.shape({
+        subscribe: PropTypes.func.isRequired,
+        dispatch: PropTypes.func.isRequired,
+        getState: PropTypes.func.isRequired
+    }),
+};
 
 const TodoApp = () => (
     <div>
@@ -236,23 +240,6 @@ const TodoApp = () => (
         <Filters />
     </div>
 );
-
-
-class Provider extends Component {
-    getChildContext() {
-        return {
-            store: this.props.store
-        };
-    }
-
-    render() {
-        return this.props.children;
-    }
-}
-
-Provider.childContextTypes = {
-    store: PropTypes.object
-}
 
 ReactDOM.render(
     <Provider store={createStore(todoApp)}>
