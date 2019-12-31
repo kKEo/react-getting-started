@@ -72388,10 +72388,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -72407,7 +72405,6 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -72465,11 +72462,10 @@ var visibilityFilter = function visibilityFilter() {
   }
 };
 
-var todoApp = Object(redux__WEBPACK_IMPORTED_MODULE_3__["combineReducers"])({
+var todoApp = Object(redux__WEBPACK_IMPORTED_MODULE_2__["combineReducers"])({
   todos: todos,
   visibilityFilter: visibilityFilter
 });
-var Component = react__WEBPACK_IMPORTED_MODULE_1___default.a.Component;
 
 var Link = function Link(_ref) {
   var active = _ref.active,
@@ -72490,13 +72486,11 @@ var Link = function Link(_ref) {
   }, " ", children, " ");
 };
 
-var mapStateToLinkProps = function mapStateToLinkProps(state, ownProps) {
+var FilterLink = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(function (state, ownProps) {
   return {
     active: ownProps.filter === state.visibilityFilter
   };
-};
-
-var mapDispatchToLinkProps = function mapDispatchToLinkProps(dispatch, ownProps) {
+}, function (dispatch, ownProps) {
   return {
     onClick: function onClick() {
       dispatch({
@@ -72505,9 +72499,7 @@ var mapDispatchToLinkProps = function mapDispatchToLinkProps(dispatch, ownProps)
       });
     }
   };
-};
-
-var FilterLink = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToLinkProps, mapDispatchToLinkProps)(Link);
+})(Link);
 
 var getVisibleTodos = function getVisibleTodos(todos, filter) {
   switch (filter) {
@@ -72573,7 +72565,7 @@ var AddTodo = function AddTodo(_ref4) {
   }, "Add Todo"));
 };
 
-AddTodo = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])()(AddTodo);
+AddTodo = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])()(AddTodo);
 
 var Filters = function Filters() {
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Show:", ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
@@ -72602,14 +72594,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
-var VisibleTodoList = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps, mapDispatchToProps)(TodoList);
+var VisibleTodoList = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(TodoList);
 
 var TodoApp = function TodoApp() {
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(AddTodo, null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(VisibleTodoList, null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Filters, null));
 };
 
-react_dom__WEBPACK_IMPORTED_MODULE_0___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_4__["Provider"], {
-  store: Object(redux__WEBPACK_IMPORTED_MODULE_3__["createStore"])(todoApp)
+react_dom__WEBPACK_IMPORTED_MODULE_0___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__["Provider"], {
+  store: Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(todoApp)
 }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoApp, null)), document.getElementById('root'));
 
 /***/ }),

@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import PropTypes from "prop-types";
 import {createStore, combineReducers} from "redux";
 import {connect, Provider} from "react-redux";
 
@@ -54,8 +53,6 @@ const todoApp = combineReducers ({
     visibilityFilter
 });
 
-const {Component} = React;
-
 const Link = ({
     active, children, onClick
 }) => {
@@ -73,28 +70,23 @@ const Link = ({
     );
 };
 
-const mapStateToLinkProps = (state, ownProps) => {
-    return {
-        active: ownProps.filter === state.visibilityFilter
-    }
-}
-
-const mapDispatchToLinkProps = (dispatch, ownProps) => {
-    return {
-        onClick: () => {
-            dispatch({
-                type: 'SET_VISIBILITY_FILTER',
-                filter: ownProps.filter
-            });
-        }
-    };
-}
-
 const FilterLink = connect (
-    mapStateToLinkProps,
-    mapDispatchToLinkProps
+    (state, ownProps) => {
+        return {
+            active: ownProps.filter === state.visibilityFilter
+        }
+    },
+    (dispatch, ownProps) => {
+        return {
+            onClick: () => {
+                dispatch({
+                    type: 'SET_VISIBILITY_FILTER',
+                    filter: ownProps.filter
+                });
+            }
+        }
+    }
 ) (Link);
-
 
 const getVisibleTodos = (
     todos, filter
@@ -142,7 +134,6 @@ const TodoList = ({
         )}
     </ul>
 );
-
 
 let nextTodoId = 0;
 let AddTodo = ({dispatch}) => {
