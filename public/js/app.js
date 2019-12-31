@@ -69769,7 +69769,6 @@ var todoApp = Object(redux__WEBPACK_IMPORTED_MODULE_2__["combineReducers"])({
   todos: todos,
   visibilityFilter: visibilityFilter
 });
-var store = Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(todoApp);
 var Component = react__WEBPACK_IMPORTED_MODULE_1___default.a.Component;
 
 var Link = function Link(_ref) {
@@ -69807,6 +69806,7 @@ function (_Component) {
     value: function componentDidMount() {
       var _this = this;
 
+      var store = this.props.store;
       this.unsubscribe = store.subscribe(function () {
         return _this.forceUpdate();
       });
@@ -69820,6 +69820,7 @@ function (_Component) {
     key: "render",
     value: function render() {
       var _this$props = this.props,
+          store = _this$props.store,
           filter = _this$props.filter,
           children = _this$props.children;
       var state = store.getState();
@@ -69883,7 +69884,8 @@ var TodoList = function TodoList(_ref3) {
 
 var nextTodoId = 0;
 
-var AddTodo = function AddTodo() {
+var AddTodo = function AddTodo(_ref4) {
+  var store = _ref4.store;
   var input;
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
     ref: function ref(node) {
@@ -69901,13 +69903,17 @@ var AddTodo = function AddTodo() {
   }, "Add Todo"));
 };
 
-var Filters = function Filters() {
+var Filters = function Filters(_ref5) {
+  var store = _ref5.store;
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, "Show:", ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
-    filter: "SHOW_ALL"
+    filter: "SHOW_ALL",
+    store: store
   }, "All"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
-    filter: "SHOW_ACTIVE"
+    filter: "SHOW_ACTIVE",
+    store: store
   }, "Active"), ' ', " ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FilterLink, {
-    filter: "SHOW_COMPLETED"
+    filter: "SHOW_COMPLETED",
+    store: store
   }, "Completed"));
 };
 
@@ -69927,6 +69933,7 @@ function (_Component2) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      var store = this.props.store;
       this.unsubscribe = store.subscribe(function () {
         _this2.forceUpdate();
       });
@@ -69939,7 +69946,7 @@ function (_Component2) {
   }, {
     key: "render",
     value: function render() {
-      var props = this.props;
+      var store = this.props.store;
       var state = store.getState();
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoList, {
         todos: getVisibleTodos(state.todos, state.visibilityFilter),
@@ -69956,11 +69963,20 @@ function (_Component2) {
   return VisibleTodoList;
 }(Component);
 
-var TodoApp = function TodoApp() {
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(AddTodo, null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(VisibleTodoList, null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Filters, null));
+var TodoApp = function TodoApp(_ref6) {
+  var store = _ref6.store;
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(AddTodo, {
+    store: store
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(VisibleTodoList, {
+    store: store
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Filters, {
+    store: store
+  }));
 };
 
-react_dom__WEBPACK_IMPORTED_MODULE_0___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoApp, null), document.getElementById('root'));
+react_dom__WEBPACK_IMPORTED_MODULE_0___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoApp, {
+  store: Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(todoApp)
+}), document.getElementById('root'));
 
 /***/ }),
 
