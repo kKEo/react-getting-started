@@ -4,10 +4,11 @@ import {AddTodo} from './AddTodo';
 import {VisibleTodoList} from './TodoList';
 import {Filters} from './FilterLink';
 
-export const TodoApp = () => (
+export const TodoApp = ({params}) => (
     <div>
         <AddTodo />
-        <VisibleTodoList />
+        <VisibleTodoList
+            filter={params.filter || 'all'}/>
         <Filters />
     </div>
 );

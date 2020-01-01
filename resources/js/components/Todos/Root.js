@@ -9,7 +9,7 @@ const customHistory = createBrowserHistory();
 const Root = ({store}) => (
     <Provider store={store}>
         <Router history={customHistory}>
-            <Route path='/' component={TodoApp}/>
+            <Route path='/(:filter)' component={TodoApp}/>
         </Router>
     </Provider>
 );

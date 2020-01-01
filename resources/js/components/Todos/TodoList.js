@@ -6,19 +6,14 @@ const getVisibleTodos = (
     todos, filter
 ) => {
     switch (filter) {
-        case 'SHOW_ALL':
+        case 'all':
             return todos;
-        case 'SHOW_COMPLETED':
-            return todos.filter(
-                t => t.completed
-            );
-        case 'SHOW_ACTIVE':
-            return todos.filter(
-                t => !t.completed
-            );
+        case 'completed':
+            return todos.filter(t => t.completed);
+        case 'active':
+            return todos.filter(t => !t.completed);
     }
 };
-
 
 const Todo = ({
       onClick,
@@ -51,10 +46,10 @@ const TodoList = ({
 );
 
 export const VisibleTodoList = connect(
-    (state) => ({
+    (state, ownProps) => ({
         todos: getVisibleTodos(
             state.todos,
-            state.visibilityFilter
+            ownProps.filter
         )
     }),
     (dispatch) => ({

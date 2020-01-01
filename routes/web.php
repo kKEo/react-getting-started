@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/{any}', function () {
     return view('spa');
-});
+})->where('any', '.*');;
 
 Auth::routes();
 

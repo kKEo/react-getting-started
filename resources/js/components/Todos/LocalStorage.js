@@ -4,11 +4,11 @@ export const loadState = () => {
         if (serializedState === null) {
             return undefined;
         }
-        return JSON.parse(serializedState);
+        const json = JSON.parse(serializedState);
+        return json;
     } catch (e) {
         return undefined;
     }
-
 };
 
 export const saveState = (state) => {
@@ -18,6 +18,5 @@ export const saveState = (state) => {
     } catch (err) {
         return undefined;
     }
-
     return undefined;
 }
