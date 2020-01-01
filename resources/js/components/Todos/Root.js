@@ -1,21 +1,17 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
+import {TodoApp} from "./TodoApp";
+import {Router, Route} from "react-router";
+import { createBrowserHistory } from 'history';
 
-import {AddTodo} from './AddTodo';
-import {VisibleTodoList} from './TodoList';
-import {Filters} from './FilterLink';
-const TodoApp = () => (
-    <div>
-        <AddTodo />
-        <VisibleTodoList />
-        <Filters />
-    </div>
-);
+const customHistory = createBrowserHistory();
 
 const Root = ({store}) => (
     <Provider store={store}>
-        <TodoApp/>
+        <Router history={customHistory}>
+            <Route path='/' component={TodoApp}/>
+        </Router>
     </Provider>
-)
+);
 
 export default Root;
