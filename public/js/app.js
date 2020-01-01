@@ -72513,6 +72513,43 @@ var Filters = function Filters() {
 
 /***/ }),
 
+/***/ "./resources/js/components/Todos/LocalStorage.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/Todos/LocalStorage.js ***!
+  \*******************************************************/
+/*! exports provided: loadState, saveState */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadState", function() { return loadState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveState", function() { return saveState; });
+var loadState = function loadState() {
+  try {
+    var serializedState = localStorage.getItem('state');
+
+    if (serializedState === null) {
+      return undefined;
+    }
+
+    return JSON.parse(serializedState);
+  } catch (e) {
+    return undefined;
+  }
+};
+var saveState = function saveState(state) {
+  try {
+    var serializedState = JSON.stringify(state);
+    localStorage.setItem('state', serializedState);
+  } catch (err) {
+    return undefined;
+  }
+
+  return undefined;
+};
+
+/***/ }),
+
 /***/ "./resources/js/components/Todos/Reducers.js":
 /*!***************************************************!*\
   !*** ./resources/js/components/Todos/Reducers.js ***!
@@ -72694,6 +72731,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddTodo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AddTodo */ "./resources/js/components/Todos/AddTodo.js");
 /* harmony import */ var _TodoList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TodoList */ "./resources/js/components/Todos/TodoList.js");
 /* harmony import */ var _FilterLink__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./FilterLink */ "./resources/js/components/Todos/FilterLink.js");
+/* harmony import */ var _LocalStorage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./LocalStorage */ "./resources/js/components/Todos/LocalStorage.js");
 
 
 
@@ -72702,13 +72740,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+var persistedState = Object(_LocalStorage__WEBPACK_IMPORTED_MODULE_8__["loadState"])();
+var store = Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(_Reducers__WEBPACK_IMPORTED_MODULE_4__["default"], persistedState);
+store.subscribe(function () {
+  Object(_LocalStorage__WEBPACK_IMPORTED_MODULE_8__["saveState"])({
+    todos: store.getState().todos
+  });
+});
 
 var TodoApp = function TodoApp() {
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_AddTodo__WEBPACK_IMPORTED_MODULE_5__["AddTodo"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_TodoList__WEBPACK_IMPORTED_MODULE_6__["VisibleTodoList"], null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FilterLink__WEBPACK_IMPORTED_MODULE_7__["Filters"], null));
 };
 
 react_dom__WEBPACK_IMPORTED_MODULE_0___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__["Provider"], {
-  store: Object(redux__WEBPACK_IMPORTED_MODULE_2__["createStore"])(_Reducers__WEBPACK_IMPORTED_MODULE_4__["default"])
+  store: store
 }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TodoApp, null)), document.getElementById('root'));
 
 /***/ }),

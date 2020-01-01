@@ -8,6 +8,19 @@ import {AddTodo} from './AddTodo';
 import {VisibleTodoList} from './TodoList';
 import {Filters} from './FilterLink';
 
+import {loadState, saveState} from './LocalStorage';
+
+const persistedState = loadState();
+const store = createStore(
+  todoApp, persistedState
+);
+
+store.subscribe(() => {
+    saveState({
+        todos: store.getState().todos
+    });
+})
+
 const TodoApp = () => (
     <div>
         <AddTodo />
@@ -17,7 +30,7 @@ const TodoApp = () => (
 );
 
 ReactDOM.render(
-    <Provider store={createStore(todoApp)}>
+    <Provider store={store}>
         <TodoApp/>
     </Provider>,
     document.getElementById('root')
