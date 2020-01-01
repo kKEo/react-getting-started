@@ -21,7 +21,7 @@
         "jest": "^24.9.0",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.13",
+        "lodash": "^4.17.15",
         "node-uuid": "^1.4.8",
         "popper.js": "^1.12",
         "prop-types": "^15.7.2",
