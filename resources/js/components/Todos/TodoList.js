@@ -5,6 +5,7 @@ import {toggleTodo} from "./Actions";
 const getVisibleTodos = (
     todos, filter
 ) => {
+    console.log('Filter: ', filter);
     switch (filter) {
         case 'all':
             return todos;
