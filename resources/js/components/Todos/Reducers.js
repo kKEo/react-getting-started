@@ -19,19 +19,30 @@ const todo = (state, action) => {
     }
 };
 
-const todos = (state =[], action) => {
+const byId = (state = {}, action) => {
     switch(action.type) {
         case 'ADD_TODO':
-            return [
-                ...state,
-                todo(undefined, action)
-            ];
         case 'TOGGLE_TODO':
-            return state.map(t => todo(t, action));
+            const prevState = state[action.id];
+            return {
+                ...state,
+                [action.id]: todo(prevState, action),
+            };
         default:
             return state;
     }
 };
+
+const allIds = (state = [], action) => {
+    switch (action.type)  {
+        case 'ADD_TODO':
+            return [...state, action.id];
+        default:
+            return state;
+    }
+};
+
+const todos = combineReducers({byId, allIds});
 
 const todoApp = combineReducers({
     todos,
@@ -39,14 +50,17 @@ const todoApp = combineReducers({
 
 export default todoApp;
 
+const getAllTodos = (state) =>
+    state.allIds.map(id => state.byId[id]);
+
 export const getVisibleTodos = (state, filter) => {
-    console.log('Filter: ', filter);
+    const todos = getAllTodos(state.todos);
     switch (filter) {
         case 'all':
-            return state.todos;
+            return todos;
         case 'completed':
-            return state.todos.filter(t => t.completed);
+            return todos.filter(t => t.completed);
         case 'active':
-            return state.todos.filter(t => !t.completed);
+            return todos.filter(t => !t.completed);
     }
 };
