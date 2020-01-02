@@ -53,9 +53,10 @@ export const VisibleTodoList = connect(
             ownProps.filter
         )
     }),
-    (dispatch) => ({
-        onTodoClick: (id) => {
-            dispatch(toggleTodo(id))
-        }
-    })
+    // (dispatch) => ({
+    //     onTodoClick: (id) => {
+    //         dispatch(toggleTodo(id))
+    //     }
+    // })
+    { onTodoClick: toggleTodo }
 )(TodoList);
