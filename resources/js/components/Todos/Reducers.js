@@ -27,12 +27,26 @@ const todos = (state =[], action) => {
                 todo(undefined, action)
             ];
         case 'TOGGLE_TODO':
-            return state.map(t => todo(t, action))
+            return state.map(t => todo(t, action));
         default:
             return state;
     }
 };
 
-const todoApp = todos;
+const todoApp = combineReducers({
+    todos,
+});
 
 export default todoApp;
+
+export const getVisibleTodos = (state, filter) => {
+    console.log('Filter: ', filter);
+    switch (filter) {
+        case 'all':
+            return state.todos;
+        case 'completed':
+            return state.todos.filter(t => t.completed);
+        case 'active':
+            return state.todos.filter(t => !t.completed);
+    }
+};

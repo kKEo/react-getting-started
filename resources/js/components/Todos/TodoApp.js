@@ -7,6 +7,7 @@ import {Filters} from './FilterLink';
 import {useParams} from 'react-router-dom';
 
 export const TodoApp = () => {
+    let {filter} = useParams();
     return (
         <div>
             <AddTodo />
