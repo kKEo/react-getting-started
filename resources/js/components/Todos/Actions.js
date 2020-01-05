@@ -7,11 +7,6 @@ export const receiveTodos = (filter, response) => ({
     response,
 });
 
-export const fetchTodos = (filter) =>
-    api.fetchTodos(filter).then(response =>
-        receiveTodos(filter, response)
-    );
-
 let nextTodoId = 0;
 const addTodo = (text) => ({
     type: 'ADD_TODO',

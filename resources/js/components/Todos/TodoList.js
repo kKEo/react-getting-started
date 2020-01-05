@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actions from "./Actions";
 import {getVisibleTodos} from './Reducers';
+import * as api from "./api";
 
 const Todo = ({
       onClick,
@@ -48,7 +49,7 @@ class VisibleTodoList2 extends Component {
     fetchData () {
         console.log('Fetching data');
         const {filter, receiveTodos} = this.props;
-        actions.fetchTodos(filter)
+        api.fetchTodos(filter)
             .then(todos => {
                 console.log(filter, todos);
                 receiveTodos(filter, todos);
