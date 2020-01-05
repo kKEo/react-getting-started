@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as actions from "./Actions";
 import * as api from "./api";
-import {getVisibleTodos} from "./Reducers";
+import {getVisibleTodos, getIsFetching} from "./Reducers";
 
 const Todo = ({
       onClick,
@@ -48,7 +48,8 @@ class VisibleTodoList2 extends Component {
 
     fetchData() {
         console.log('Fetching data');
-        const {filter, receiveTodos} = this.props;
+        const {filter, requestTodos, receiveTodos} = this.props;
+        requestTodos(filter);
         api.fetchTodos(filter)
             .then(todos => {
                 console.log(filter, todos);
@@ -57,10 +58,13 @@ class VisibleTodoList2 extends Component {
     }
 
     render () {
-        const { toggleTodo, ...rest } = this.props;
+        const { toggleTodo, todos, isFetching } = this.props;
+        if (isFetching && !todos.length) {
+            return <p>Loading...</p>
+        }
         return (
             <TodoList
-                {...rest }
+                todos = {todos}
                 onTodoClick={toggleTodo} />
         );
     }
@@ -70,6 +74,7 @@ class VisibleTodoList2 extends Component {
 export const VisibleTodoList = connect(
     (state, {filter}) => ({
         todos: getVisibleTodos(state, filter),
+        isFetching: getIsFetching(state, filter),
         filter
     }),
     actions
