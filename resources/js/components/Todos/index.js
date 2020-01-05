@@ -1,8 +1,12 @@
 import ReactDOM from "react-dom";
 import React from "react";
 
-import configureStore from './ConfigurationStore';
 import Root from "./Root";
+import configureStore from './ConfigurationStore';
+
+import {fetchTodos} from './api';
+
+fetchTodos('all').then(todos => console.log(todos));
 
 const store = configureStore();
 
