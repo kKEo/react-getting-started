@@ -40,7 +40,7 @@ const toggleTodo = (id) => (dispatch) =>
     api.toggleTodo(id).then(response => {
     dispatch({
             type: 'TOGGLE_TODO',
-            id,
+            response: normalize(response, schema.todo),
         });
     });
 
