@@ -23,11 +23,26 @@ const index = {
 const delay = (ms) =>
     new Promise(resolve => setTimeout(resolve, ms));
 
+export const addTodo = (text) =>
+    delay(500).then(() => {
+       const todo = {
+           id: v4(),
+           text,
+           completed: false,
+       };
+        index.todos.push(todo);
+       return todo;
+    });
+
+export const toggleTodo = (id) =>
+    delay(500).then(() => {
+       const todo = index.todos.find(t => t.id === id);
+       todo.completed = !todo.completed;
+       return todo;
+    });
+
 export const fetchTodos = (filter) =>
     delay(500).then(() => {
-
-        throw new Error('Boom!');
-
         switch (filter) {
             case 'all':
                 return index.todos;

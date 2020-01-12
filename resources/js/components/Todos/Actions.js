@@ -1,4 +1,3 @@
-import {v4} from 'node-uuid';
 import * as api from "./api";
 import {getIsFetching} from "./Reducers";
 
@@ -19,7 +18,6 @@ export const fetchTodos = (filter) => (dispatch, getState) => {
         });
     }, error => {
         console.log('Response:', error);
-
         dispatch ({
             type: 'FETCH_TODOS_FAILURE',
             filter,
@@ -28,17 +26,21 @@ export const fetchTodos = (filter) => (dispatch, getState) => {
     });
 };
 
-let nextTodoId = 0;
-const addTodo = (text) => ({
-    type: 'ADD_TODO',
-    id: v4(),
-    text
-});
+const addTodo = (text) => (dispatch) =>
+    api.addTodo(text).then(response => {
+        dispatch({
+            type: 'ADD_TODO_SUCCESS',
+            response,
+        })
+    });
 
-const toggleTodo = (id) => ({
-    type: 'TOGGLE_TODO',
-    id
-});
+const toggleTodo = (id) => (dispatch) =>
+    api.toggleTodo(id).then(response => {
+    dispatch({
+            type: 'TOGGLE_TODO',
+            id,
+        });
+    });
 
 export {
     addTodo, toggleTodo
